@@ -122,6 +122,9 @@ type (
 		AddForeignKey    bool `spec:"add_foreign_key"`
 		DropForeignKey   bool `spec:"drop_foreign_key"`
 		ModifyForeignKey bool `spec:"modify_foreign_key"`
+		AddFunc          bool `spec:"add_function"`
+		ModifyFunc       bool `spec:"modify_function"`
+		DropFunc         bool `spec:"drop_function"`
 	}
 
 	// Format represents the output formatting configuration of an environment.
@@ -299,6 +302,7 @@ func (d *Diff) Options() (opts []schema.DiffOption) {
 		&schema.AddColumn{}, &schema.DropColumn{}, &schema.ModifyColumn{},
 		&schema.AddIndex{}, &schema.DropIndex{}, &schema.ModifyIndex{},
 		&schema.AddForeignKey{}, &schema.DropForeignKey{}, &schema.ModifyForeignKey{},
+		&schema.AddFunc{}, &schema.DropFunc{}, &schema.ModifyFunc{},
 	} {
 		if rt := reflect.TypeOf(c).Elem(); rv.FieldByName(rt.Name()).Bool() {
 			changes = append(changes, c)
